@@ -1,0 +1,97 @@
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Driver</h1>
+
+<% if(messages.error) { %>
+    <div class="alert alert-danger"><%- messages.error %> </div>
+<% } %>  
+<% if(messages.success) { %>
+    <div class="alert alert-success"><%- messages.success %> </div>
+<% } %>  
+
+<%- include('create') %>
+<%- include('edit') %>
+<%- include('show') %>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row justify-content-between">
+            <div class="ml-3 mt-2">
+                <h6 class="m-0 font-weight-bold text-primary">List Driver</h6>
+            </div>
+            <div class="mr-3 mt-2">
+                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#createModal">Tambah</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>No. Hp</th>
+                        <th>Alamat</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>No. Hp</th>
+                        <th>Alamat</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% for(var i = 0; i < data.length; i++) { %>
+                        <tr>
+                            <td><%= (i+1) + '.' %> </td>
+                            <td><%= data[i].name %> </td>
+                            <td><%= data[i].phone %> </td>
+                            <td><%= data[i].address %> </td>
+                            <% if (data[i].status == 'available') { %>
+                                <td><h5><span class="badge bg-success text-white"><%= data[i].status %></span></h5> </td>
+                            <% } else { %>
+                                <td><h5><span class="badge bg-danger text-white"><%= data[i].status %></span></h5> </td>
+                            <% }  %>   
+                            <td>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="mr-2">
+                                            <a href="javascript:void()"
+                                            data-id="<%- data[i].id %>" 
+                                            data-name="<%- data[i].name %>" 
+                                            data-phone="<%- data[i].phone %>" 
+                                            data-address="<%- data[i].address %>"
+                                            data-photo="<%- data[i].photo %>"
+                                            class="btn btn-primary btn-sm show-btn">Lihat</a>
+                                        </div>
+                                        <div class="mr-2">
+                                            <a href="javascript:void()"
+                                            data-id="<%- data[i].id %>" 
+                                            data-name="<%- data[i].name %>" 
+                                            data-phone="<%- data[i].phone %>" 
+                                            data-address="<%- data[i].address %>"
+                                            data-photo="<%- data[i].photo %>"
+                                            class="btn btn-warning btn-sm edit-btn">Edit</a>
+                                        </div>
+                                        <div>
+                                            <form action="/drivers/delete/<%- data[i].id  %>?_method=delete " method="post">
+                                                <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <% } %>  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
